@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+
+  	<!--
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>Connected Things</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+
+  </head>
+
+  <body ng-controller="IndexCtrl">
+    <div class="container">
+
+		<div class="page-header">
+			<h1>Connected Things</h1>
+			<p class="lead">Hub to connect things together</p>
+		</div>
+
+		<div class="row">
+
+			<div class='col-md-4'>
+				<h2>Devices</h2>
+				
+				<!-- New device -->
+				<div class="input-group">
+					<input type="text" ng-model="newDeviceId" class="form-control" placeholder="DeviceID">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="createNewDevice()">+</button>
+					</span>
+				</div><!-- /input-group -->				
+
+				<ul class="list-group">
+  					<li class="list-group-item" ng-repeat="device in devices">{{device.deviceId}}</li>
+  				</ul>
+
+			</div>
+
+
+			<div class='col-md-4'>
+				<h2>Connections</h2>
+
+				<!-- New connection -->
+				<div class="row">
+					<div class="col-md-6">When device</div>
+					<div class="col-md-6">sends value</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6">
+					
+					    <select type="text" ng-model="newConn.input.device" class="form-control" placeholder="Device">
+					    	<option ng-repeat="device in devices" value="{{device.deviceId}}">{{device.deviceId}}</option>
+					    </select>
+
+					</div>
+					<div class="col-md-6">
+						
+						<div class="input-group">
+							<input type="text" ng-model="newConn.input.value" class="form-control" placeholder="Value">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button" ng-click="createNewConnection()">+</button>
+							</span>
+						</div><!-- /input-group -->				
+
+					</div>
+
+
+				</div>
+
+				<div ng-repeat="connection in connections">
+					<!-- Input -->
+					<b>When </b> {{connection.input.device}} <b> sends value </b> {{connection.input.value}}:<br/>
+
+					<!-- Outputs -->
+					<ul>
+						<li ng-repeat="output in connection.outputs">
+							<b>Send </b> {{output.value}} <b> to </b> {{output.device}}
+						</li>
+						<!-- New output -->
+						<li>
+							<b>Send </b> <input type="text" ng-model="connection.newOutput.value"> <b> to </b> 
+						    
+						    <select type="text" ng-model="connection.newOutput.device" class="form-control" placeholder="Device">
+						    	<option ng-repeat="device in devices" value="{{device.deviceId}}">{{device.deviceId}}</option>
+						    </select>
+						    <button class="btn btn-default" type="button" ng-click="createNewConnectionOutput(connection)">+</button>
+							
+						</li>
+					</ul>
+
+
+				</div>
+
+
+			</div>
+
+
+			<div class='col-md-4'>
+				<h2>Messages</h2>
+			</div>
+
+		</div>
+
+
+    </div> <!-- /container -->
+
+<!--
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+-->
+
+	<script type="text/javascript" src="js/angular/IndexCtrl.js"></script>
+
+  </body>
+</html>
