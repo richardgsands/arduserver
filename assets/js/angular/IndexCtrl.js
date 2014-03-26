@@ -13,6 +13,20 @@ app.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 	});
 	$scope.newConn = {};
 
+
+
+	setInterval(function() {
+	
+		socket.get('/message', function (response) { 
+			$scope.messages = response;
+			$scope.$apply();
+		});
+
+	}, 500);
+
+
+
+
 	$scope.createNewDevice = function() {
 		// Push if device ID does not already exist
 		if ( $scope.newDeviceId != null && $scope.devices.indexOf( $scope.newDeviceId ) == -1 ) {
@@ -63,5 +77,5 @@ app.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 	}
 
 
-	  $scope.greeting = 'Hi!';
+
 }]);

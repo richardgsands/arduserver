@@ -36,6 +36,11 @@ module.exports.routes = {
     view: 'home/index'
   },
 
+  '/messages': {
+    view: 'home/index'
+  },
+
+
   '/sendMessage': {
     controller: 'api',
     action: 'sendMessage'

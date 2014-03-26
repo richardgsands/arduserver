@@ -16,22 +16,33 @@
  */
 
 module.exports = {
+
+	DIRECTION_IN: "DIRECTION_IN",
+	DIRECTION_OUT: "DIRECTION_OUT",
     
 	sendMessage: function (req, res) {
-        
+
 		if ( req.query.deviceId == null || req.query.value == null ) {
 			res.send(500, {error: "Must provide deviceId and value parameters"});
 		}
 
-		// Save message
-		Message.create({deviceId: req.query.deviceId, value: req.query.value}).done(function(error, message) {
-				console.log ("Message created", error, message);
+		// Save message in DB
+		Message.create({deviceId: req.query.deviceId, value: req.query.value, direction: this.DIRECTION_IN}).done(function(error, message) {
                 if (error) {
                     res.send(500, {error: "Error"});
                 } else {
                     res.send("Successful");
                 }
         });
+
+        // Send messages to connected devices
+        var inputDeviceToFind = { "input": { "device": req.query.deviceId } };
+        //var inputDeviceToFind = { 'input.device': req.query.deviceId };
+        console.log('inputDeviceToFind', inputDeviceToFind)
+        Connection.find(inputDeviceToFind, function(error, results) {
+        	console.log ("Found: ", error, results);
+        });
+
 
     }, 
 

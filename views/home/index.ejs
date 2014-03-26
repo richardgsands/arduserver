@@ -13,12 +13,7 @@
     <title>Connected Things</title>
 
     <!-- Bootstrap core CSS -->
-    <!-- <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
   </head>
 
@@ -43,6 +38,9 @@
 					</span>
 				</div><!-- /input-group -->				
 
+				<br/>
+
+				<!-- List -->
 				<ul class="list-group">
   					<li class="list-group-item" ng-repeat="device in devices">{{device.deviceId}}</li>
   				</ul>
@@ -81,26 +79,35 @@
 
 				</div>
 
-				<div ng-repeat="connection in connections">
-					<!-- Input -->
-					<b>When </b> {{connection.input.device}} <b> sends value </b> {{connection.input.value}}:<br/>
+				<br/>
+				<div ng-repeat="connection in connections" class="panel panel-default">
+					
+					<div class="panel-body">
+						<!-- Input -->
+						<b>When </b> {{connection.input.device}} <b> sends value </b> {{connection.input.value}}:<br/>
+					</div>
 
-					<!-- Outputs -->
-					<ul>
-						<li ng-repeat="output in connection.outputs">
-							<b>Send </b> {{output.value}} <b> to </b> {{output.device}}
-						</li>
-						<!-- New output -->
-						<li>
-							<b>Send </b> <input type="text" ng-model="connection.newOutput.value"> <b> to </b> 
-						    
-						    <select type="text" ng-model="connection.newOutput.device" class="form-control" placeholder="Device">
-						    	<option ng-repeat="device in devices" value="{{device.deviceId}}">{{device.deviceId}}</option>
-						    </select>
-						    <button class="btn btn-default" type="button" ng-click="createNewConnectionOutput(connection)">+</button>
-							
-						</li>
-					</ul>
+					<div class="panel-body">
+
+						<!-- Outputs -->
+						<ul class="list-group">
+							<li ng-repeat="output in connection.outputs" class="list-group-item">
+								<b>Send </b> {{output.value}} <b> to </b> {{output.device}}
+							</li>
+							<!-- New output -->
+							<li class="list-group-item">
+								<b>Send </b> <input type="text" ng-model="connection.newOutput.value"> <b> to </b> 
+							    <br/><br/>
+							    <select type="text" ng-model="connection.newOutput.device" class="form-control" placeholder="Device">
+							    	<option ng-repeat="device in devices" value="{{device.deviceId}}">{{device.deviceId}}</option>
+							    </select>
+							    <br/>
+							    <button class="btn btn-default" type="button" ng-click="createNewConnectionOutput(connection)">+</button>
+								
+							</li>
+						</ul>
+
+					</div>
 
 
 				</div>
@@ -111,6 +118,13 @@
 
 			<div class='col-md-4'>
 				<h2>Messages</h2>
+
+				<div class="alert alert-info" ng-repeat="message in messages" >
+					Message from {{message.deviceId}}
+					<!-- <img src="http://thecatapi.com/api/images/get?format=src&type=gif&{{$index}}"> -->
+				</div>
+
+
 			</div>
 
 		</div>
@@ -118,13 +132,12 @@
 
     </div> <!-- /container -->
 
-<!--
+
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
 
 	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
--->
 
 	<script type="text/javascript" src="js/angular/IndexCtrl.js"></script>
 
